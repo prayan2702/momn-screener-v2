@@ -227,7 +227,12 @@ def app_content():
     df = df.set_index('Yahoo_Symbol')
     symbol = list(df.index)
 
-    CHUNK = 15 if U == "AllNSE" else 50
+    if api_source == "Upstox":
+        CHUNK = 50
+    elif U == "AllNSE":
+        CHUNK = 15
+    else:
+        CHUNK = 50
     st.write(f"Chunk size set to **{CHUNK}** for universe: **{U}** | Data source: **{api_source}**")
 
     # ─────────────────────────────────────────────────────────────
