@@ -34,6 +34,10 @@ from json.decoder import JSONDecodeError
 # ── NEW: import unified data-fetching service ─────────────────
 from data_service import fetch_data
 
+# Upstox sidebar login (show on every page load)
+from upstox_auth import get_upstox_access_token
+get_upstox_access_token(sidebar=True)
+
 # ─────────────────────────────────────────────────────────────
 # Hard-coded app credentials
 # ─────────────────────────────────────────────────────────────
@@ -189,15 +193,6 @@ def app_content():
             "Add real credentials in data_service.py to activate."
         )
     )
-
-    # Show a Phase-1 notice for non-YFinance sources
-    if api_source in ("Upstox", "Zerodha"):
-        st.info(
-            f"ℹ️ **{api_source}** is running in **mock/demo mode** (Phase-1). "
-            f"To use real data, add your API credentials in `data_service.py` "
-            f"under `{api_source.upper()}_CONFIG` and uncomment the Phase-2 block.",
-            icon="🔧"
-        )
 
     # ── Lookback date ─────────────────────────────────────────────
     selected_date = st.date_input("Select Lookback Date", datetime.today())
